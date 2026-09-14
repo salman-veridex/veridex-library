@@ -1,0 +1,37 @@
+{
+  "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+  "version": 1,
+  "cli": {
+    "packageManager": "npm",
+    "analytics": "a228ad2a-6f95-4a08-90e8-b0adc27aa035"
+  },
+  "newProjectRoot": "projects",
+  "projects": {
+    "veridex-ui": {
+      "projectType": "library",
+      "root": "projects/veridex-ui",
+      "sourceRoot": "projects/veridex-ui/src",
+      "prefix": "vx",
+      "architect": {
+        "build": {
+          "builder": "@angular/build:ng-packagr",
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/veridex-ui/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "projects/veridex-ui/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular/build:unit-test",
+          "options": {
+            "tsConfig": "projects/veridex-ui/tsconfig.spec.json"
+          }
+        }
+      }
+    }
+  }
+}
