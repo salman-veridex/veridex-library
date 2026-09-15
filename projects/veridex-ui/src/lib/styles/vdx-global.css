@@ -937,10 +937,23 @@ color: var(--vdx-color-text-primary);
   width: var(--vdx-sidebar-width-collapsed);
 }
 
+.vdx-sidebar--collapsed .vdx-nav-item__label,
 .vdx-sidebar--collapsed .vdx-nav__label,
 .vdx-sidebar--collapsed .vdx-nav__group-label,
 .vdx-sidebar--collapsed .vdx-nav__badge {
   display: none;
+}
+
+.vdx-sidebar--collapsed .vdx-nav-item {
+  justify-content: center;
+  padding-inline: var(--vdx-space-2);
+}
+
+.vdx-nav-item > vx-icon {
+  flex: 0 0 20px;
+  width: 20px;
+  height: 20px;
+  color: inherit;
 }
 
 /* Mobile — sidebar becomes an overlay drawer */

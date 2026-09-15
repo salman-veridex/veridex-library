@@ -1,5 +1,6 @@
-import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
+import { Component, Input, ChangeDetectionStrategy, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 
 export type VxIconSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl';
 
@@ -32,6 +33,12 @@ export type VxIconSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl';
       vertical-align: middle;
       line-height: 1;
     }
+    .vdx-icon {
+      display: block;
+      flex: 0 0 auto;
+      overflow: visible;
+      color: inherit;
+    }
     .vdx-icon--xs { width: 12px; height: 12px; }
     .vdx-icon--sm { width: 16px; height: 16px; stroke-width: 1.25; }
     .vdx-icon--md { width: 20px; height: 20px; stroke-width: 1.5; }
@@ -42,6 +49,8 @@ export type VxIconSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class VxIconComponent {
+  private readonly sanitizer = inject(DomSanitizer);
+
   @Input() name: string = 'circle';
   @Input() size: VxIconSize = 'md';
   @Input() ariaLabel?: string;
@@ -112,7 +121,9 @@ export class VxIconComponent {
     'vdx-fnol': '<path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="12" y1="12" x2="12" y2="18"></line><line x1="9" y1="15" x2="15" y2="15"></line>'
   };
 
-  getSvgPath(name: string): string {
-    return this.iconPaths[name] || this.iconPaths['circle'];
+  getSvgPath(name: string): SafeHtml {
+    return this.sanitizer.bypassSecurityTrustHtml(
+      this.iconPaths[name] || this.iconPaths['circle']
+    );
   }
 }

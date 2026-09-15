@@ -289,7 +289,7 @@ export class VxSidebarComponent {}
       [class.vdx-nav-item--active]="active"
       class="vdx-nav-item"
       [attr.aria-current]="active ? 'page' : null">
-      <vx-icon *ngIf="icon" [name]="icon" size="md" class="vdx-nav-item__icon"></vx-icon>
+      <vx-icon [name]="icon || 'circle'" size="md" class="vdx-nav-item__icon"></vx-icon>
       <span class="vdx-nav-item__label">{{ label }}</span>
     </a>
   `,
