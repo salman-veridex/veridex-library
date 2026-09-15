@@ -1,0 +1,742 @@
+{
+  "package": "@veridex/ui",
+  "description": "Machine-readable catalog of the public Veridex UI Angular components and directives.",
+  "usage": {
+    "import": "import { ComponentName } from '@veridex/ui';",
+    "standalone": "Add each imported component or directive to the consuming standalone component's imports array.",
+    "styles": "@import '@veridex/ui/styles/vdx-global.css';"
+  },
+  "components": [
+    {
+      "group": "iconography",
+      "class": "VxIconComponent",
+      "selector": "vx-icon",
+      "inputs": {
+        "name": "string",
+        "size": "xs | sm | md | lg | xl | 2xl",
+        "ariaLabel": "string",
+        "customClass": "string"
+      },
+      "outputs": {},
+      "example": "<vx-icon name=\"search\" size=\"md\" ariaLabel=\"Search\"></vx-icon>"
+    },
+    {
+      "group": "typography",
+      "class": "VxHeadingComponent",
+      "selector": "vx-heading",
+      "inputs": {
+        "level": "1 | 2 | 3 | 4 | 5 | 6",
+        "customClass": "string"
+      },
+      "outputs": {},
+      "example": "<vx-heading [level]=\"2\">Policy details</vx-heading>"
+    },
+    {
+      "group": "typography",
+      "class": "VxTextComponent",
+      "selector": "vx-text",
+      "inputs": {
+        "size": "lg | md | sm | xs",
+        "variant": "primary | secondary | tertiary | inverse | error | success | warning | info",
+        "customClass": "string"
+      },
+      "outputs": {},
+      "example": "<vx-text variant=\"secondary\">Review the submitted information.</vx-text>"
+    },
+    {
+      "group": "typography",
+      "class": "VxLabelComponent",
+      "selector": "vx-label",
+      "inputs": {
+        "htmlFor": "string",
+        "required": "boolean",
+        "block": "boolean",
+        "customClass": "string"
+      },
+      "outputs": {},
+      "example": "<vx-label htmlFor=\"policy-number\" [required]=\"true\">Policy number</vx-label>"
+    },
+    {
+      "group": "typography",
+      "class": "VxCodeComponent",
+      "selector": "vx-code",
+      "inputs": {
+        "customClass": "string"
+      },
+      "outputs": {},
+      "example": "<vx-code>POL-2024-8841</vx-code>"
+    },
+    {
+      "group": "actions",
+      "class": "VxButtonComponent",
+      "selector": "vx-button",
+      "inputs": {
+        "variant": "primary | secondary | tertiary | danger | ghost",
+        "size": "sm | md | lg",
+        "disabled": "boolean",
+        "loading": "boolean",
+        "fullWidth": "boolean",
+        "type": "button | submit | reset",
+        "leadingIcon": "string",
+        "trailingIcon": "string",
+        "ariaLabel": "string",
+        "customClass": "string"
+      },
+      "outputs": {
+        "clicked": "void"
+      },
+      "example": "<vx-button variant=\"primary\" leadingIcon=\"save\" (clicked)=\"save()\">Save</vx-button>"
+    },
+    {
+      "group": "actions",
+      "class": "VxIconButtonComponent",
+      "selector": "vx-icon-button",
+      "inputs": {
+        "icon": "string",
+        "variant": "primary | secondary | tertiary | danger | ghost",
+        "size": "sm | md | lg",
+        "disabled": "boolean",
+        "loading": "boolean",
+        "ariaLabel": "string (required)",
+        "customClass": "string"
+      },
+      "outputs": {
+        "clicked": "void"
+      },
+      "example": "<vx-icon-button icon=\"more-horizontal\" ariaLabel=\"More actions\" (clicked)=\"openMenu()\"></vx-icon-button>"
+    },
+    {
+      "group": "actions",
+      "class": "VxButtonGroupComponent",
+      "selector": "vx-button-group",
+      "inputs": {},
+      "outputs": {},
+      "example": "<vx-button-group><vx-button>Cancel</vx-button><vx-button>Confirm</vx-button></vx-button-group>"
+    },
+    {
+      "group": "display",
+      "class": "VxBadgeComponent",
+      "selector": "vx-badge",
+      "inputs": {
+        "variant": "default | primary | success | warning | error | info",
+        "size": "sm | md | lg",
+        "dot": "boolean",
+        "customClass": "string"
+      },
+      "outputs": {},
+      "example": "<vx-badge variant=\"success\">Active</vx-badge>"
+    },
+    {
+      "group": "display",
+      "class": "VxChipComponent",
+      "selector": "vx-chip",
+      "inputs": {
+        "selected": "boolean",
+        "selectable": "boolean",
+        "removable": "boolean",
+        "disabled": "boolean",
+        "icon": "string"
+      },
+      "outputs": {
+        "selectedChange": "boolean",
+        "removed": "void"
+      },
+      "example": "<vx-chip icon=\"filter\" [selectable]=\"true\" (selectedChange)=\"filterOn = $event\">Open</vx-chip>"
+    },
+    {
+      "group": "display",
+      "class": "VxChipGroupComponent",
+      "selector": "vx-chip-group",
+      "inputs": {},
+      "outputs": {},
+      "example": "<vx-chip-group><vx-chip>Open</vx-chip><vx-chip>Closed</vx-chip></vx-chip-group>"
+    },
+    {
+      "group": "display",
+      "class": "VxAvatarComponent",
+      "selector": "vx-avatar",
+      "inputs": {
+        "src": "string",
+        "name": "string",
+        "size": "sm | md | lg | xl",
+        "status": "online | offline | busy | away"
+      },
+      "outputs": {},
+      "example": "<vx-avatar name=\"Ayesha Khan\" status=\"online\"></vx-avatar>"
+    },
+    {
+      "group": "display",
+      "class": "VxAvatarGroupComponent",
+      "selector": "vx-avatar-group",
+      "inputs": {},
+      "outputs": {},
+      "example": "<vx-avatar-group><vx-avatar name=\"Ayesha Khan\"></vx-avatar></vx-avatar-group>"
+    },
+    {
+      "group": "display",
+      "class": "VxCardComponent",
+      "selector": "vx-card",
+      "inputs": {
+        "variant": "default | outlined | elevated",
+        "selected": "boolean",
+        "customClass": "string"
+      },
+      "outputs": {
+        "clicked": "void"
+      },
+      "example": "<vx-card variant=\"default\" (clicked)=\"selectCard()\"><vx-card-content>Coverage details</vx-card-content></vx-card>"
+    },
+    {
+      "group": "display",
+      "class": "VxCardHeaderComponent",
+      "selector": "vx-card-header",
+      "inputs": {},
+      "outputs": {},
+      "example": "<vx-card-header><vx-card-title>Premium</vx-card-title></vx-card-header>"
+    },
+    {
+      "group": "display",
+      "class": "VxCardTitleComponent",
+      "selector": "vx-card-title",
+      "inputs": {},
+      "outputs": {},
+      "example": "<vx-card-title>Premium</vx-card-title>"
+    },
+    {
+      "group": "display",
+      "class": "VxCardContentComponent",
+      "selector": "vx-card-content",
+      "inputs": {},
+      "outputs": {},
+      "example": "<vx-card-content>Coverage details</vx-card-content>"
+    },
+    {
+      "group": "display",
+      "class": "VxCardFooterComponent",
+      "selector": "vx-card-footer",
+      "inputs": {},
+      "outputs": {},
+      "example": "<vx-card-footer><vx-button>View</vx-button></vx-card-footer>"
+    },
+    {
+      "group": "loading",
+      "class": "VxSpinnerComponent",
+      "selector": "vx-spinner",
+      "inputs": {
+        "size": "sm | md | lg",
+        "ariaLabel": "string"
+      },
+      "outputs": {},
+      "example": "<vx-spinner size=\"md\" ariaLabel=\"Loading\"></vx-spinner>"
+    },
+    {
+      "group": "loading",
+      "class": "VxSkeletonComponent",
+      "selector": "vx-skeleton",
+      "inputs": {
+        "width": "string",
+        "height": "string",
+        "shape": "text | rect | circle"
+      },
+      "outputs": {},
+      "example": "<vx-skeleton width=\"240px\" height=\"18px\" shape=\"text\"></vx-skeleton>"
+    },
+    {
+      "group": "loading",
+      "class": "VxProgressBarComponent",
+      "selector": "vx-progress-bar",
+      "inputs": {
+        "value": "number",
+        "max": "number",
+        "label": "string",
+        "showLabel": "boolean",
+        "variant": "primary | success | error"
+      },
+      "outputs": {},
+      "example": "<vx-progress-bar [value]=\"completed\" [max]=\"total\" [showLabel]=\"true\"></vx-progress-bar>"
+    },
+    {
+      "group": "layout",
+      "class": "VxAppShellComponent",
+      "selector": "vx-app-shell",
+      "inputs": {},
+      "outputs": {},
+      "example": "<vx-app-shell><vx-sidebar></vx-sidebar><router-outlet></router-outlet></vx-app-shell>"
+    },
+    {
+      "group": "layout",
+      "class": "VxTopBarComponent",
+      "selector": "vx-top-bar",
+      "inputs": {
+        "portalName": "string"
+      },
+      "outputs": {},
+      "example": "<vx-top-bar portalName=\"Operations\"></vx-top-bar>"
+    },
+    {
+      "group": "layout",
+      "class": "VxSidebarComponent",
+      "selector": "vx-sidebar",
+      "inputs": {},
+      "outputs": {},
+      "example": "<vx-sidebar><vx-sidebar-item label=\"Dashboard\" path=\"/dashboard\"></vx-sidebar-item></vx-sidebar>"
+    },
+    {
+      "group": "layout",
+      "class": "VxSidebarItemComponent",
+      "selector": "vx-sidebar-item",
+      "inputs": {
+        "label": "string",
+        "title": "string",
+        "icon": "string",
+        "active": "boolean",
+        "href": "string",
+        "path": "string",
+        "children": "VxSidebarItem[]",
+        "currentPath": "string"
+      },
+      "outputs": {},
+      "example": "<vx-sidebar-item label=\"Policies\" icon=\"file-text\" [children]=\"policyLinks\"></vx-sidebar-item>"
+    },
+    {
+      "group": "layout",
+      "class": "VxStackComponent",
+      "selector": "vx-stack",
+      "inputs": {
+        "gap": "1 | 2 | 3 | 4 | 6 | 8"
+      },
+      "outputs": {},
+      "example": "<vx-stack gap=\"4\"><vx-heading [level]=\"2\">Dashboard</vx-heading></vx-stack>"
+    },
+    {
+      "group": "layout",
+      "class": "VxInlineComponent",
+      "selector": "vx-inline",
+      "inputs": {
+        "gap": "1 | 2 | 3 | 4 | 6 | 8"
+      },
+      "outputs": {},
+      "example": "<vx-inline gap=\"2\"><vx-badge>New</vx-badge><vx-badge>Open</vx-badge></vx-inline>"
+    },
+    {
+      "group": "layout",
+      "class": "VxGridComponent",
+      "selector": "vx-grid",
+      "inputs": {
+        "cols": "number"
+      },
+      "outputs": {},
+      "example": "<vx-grid [cols]=\"3\"><vx-card>One</vx-card><vx-card>Two</vx-card></vx-grid>"
+    },
+    {
+      "group": "navigation",
+      "class": "VxTabsComponent",
+      "selector": "vx-tabs",
+      "inputs": {
+        "selectedIndex": "number"
+      },
+      "outputs": {
+        "selectedIndexChange": "number"
+      },
+      "example": "<vx-tabs [(selectedIndex)]=\"tabIndex\"><vx-tab label=\"Overview\">Content</vx-tab></vx-tabs>"
+    },
+    {
+      "group": "navigation",
+      "class": "VxTabComponent",
+      "selector": "vx-tab",
+      "inputs": {
+        "label": "string (required)",
+        "disabled": "boolean"
+      },
+      "outputs": {},
+      "example": "<vx-tab label=\"Overview\">Overview content</vx-tab>"
+    },
+    {
+      "group": "navigation",
+      "class": "VxAccordionComponent",
+      "selector": "vx-accordion",
+      "inputs": {},
+      "outputs": {},
+      "example": "<vx-accordion><vx-accordion-item title=\"Details\">More details</vx-accordion-item></vx-accordion>"
+    },
+    {
+      "group": "navigation",
+      "class": "VxAccordionItemComponent",
+      "selector": "vx-accordion-item",
+      "inputs": {
+        "title": "string (required)",
+        "initialExpanded": "boolean"
+      },
+      "outputs": {
+        "expandedChange": "boolean"
+      },
+      "example": "<vx-accordion-item title=\"Details\" [initialExpanded]=\"true\">More details</vx-accordion-item>"
+    },
+    {
+      "group": "navigation",
+      "class": "VxStepperComponent",
+      "selector": "vx-stepper",
+      "inputs": {
+        "steps": "VxStep[] (required)",
+        "currentStep": "number"
+      },
+      "outputs": {
+        "stepClick": "number"
+      },
+      "example": "<vx-stepper [steps]=\"steps\" [currentStep]=\"currentStep\" (stepClick)=\"goToStep($event)\"></vx-stepper>"
+    },
+    {
+      "group": "navigation",
+      "class": "VxBreadcrumbComponent",
+      "selector": "vx-breadcrumb",
+      "inputs": {
+        "items": "VxBreadcrumbItem[] (required)"
+      },
+      "outputs": {},
+      "example": "<vx-breadcrumb [items]=\"breadcrumbs\"></vx-breadcrumb>"
+    },
+    {
+      "group": "forms",
+      "class": "VxFormFieldComponent",
+      "selector": "vx-form-field",
+      "inputs": {
+        "label": "string",
+        "required": "boolean",
+        "hint": "string",
+        "error": "string"
+      },
+      "outputs": {},
+      "example": "<vx-form-field label=\"Email\" [required]=\"true\"><vx-input type=\"email\"></vx-input></vx-form-field>"
+    },
+    {
+      "group": "forms",
+      "class": "VxInputDirective",
+      "selector": "input[vxInput]",
+      "selectorType": "attribute",
+      "inputs": {},
+      "outputs": {},
+      "example": "<input vxInput placeholder=\"Search\">"
+    },
+    {
+      "group": "forms",
+      "class": "VxInputComponent",
+      "selector": "vx-input",
+      "inputs": {
+        "type": "string",
+        "placeholder": "string",
+        "disabled": "boolean",
+        "readonly": "boolean",
+        "invalid": "boolean",
+        "prefixIcon": "string",
+        "suffixIcon": "string"
+      },
+      "outputs": {},
+      "example": "<vx-input type=\"email\" placeholder=\"name@example.com\"></vx-input>"
+    },
+    {
+      "group": "forms",
+      "class": "VxSelectComponent",
+      "selector": "vx-select",
+      "inputs": {
+        "options": "{ label: string, value: unknown }[]",
+        "placeholder": "string",
+        "disabled": "boolean",
+        "invalid": "boolean"
+      },
+      "outputs": {},
+      "example": "<vx-select [options]=\"statusOptions\" placeholder=\"Select status\"></vx-select>"
+    },
+    {
+      "group": "forms",
+      "class": "VxCheckboxComponent",
+      "selector": "vx-checkbox",
+      "inputs": {
+        "checked": "boolean",
+        "disabled": "boolean"
+      },
+      "outputs": {
+        "checkedChange": "boolean"
+      },
+      "example": "<vx-checkbox [(checked)]=\"accepted\">I accept</vx-checkbox>"
+    },
+    {
+      "group": "forms",
+      "class": "VxToggleComponent",
+      "selector": "vx-toggle",
+      "inputs": {
+        "checked": "boolean",
+        "disabled": "boolean"
+      },
+      "outputs": {
+        "checkedChange": "boolean"
+      },
+      "example": "<vx-toggle [(checked)]=\"enabled\">Enabled</vx-toggle>"
+    },
+    {
+      "group": "forms",
+      "class": "VxFileUploadComponent",
+      "selector": "vx-file-upload",
+      "inputs": {
+        "accept": "string",
+        "multiple": "boolean",
+        "hint": "string"
+      },
+      "outputs": {
+        "filesSelected": "File[]"
+      },
+      "example": "<vx-file-upload accept=\".pdf,.csv\" [multiple]=\"true\" (filesSelected)=\"upload($event)\"></vx-file-upload>"
+    },
+    {
+      "group": "forms",
+      "class": "VxCurrencyInputComponent",
+      "selector": "vx-currency-input",
+      "inputs": {
+        "currency": "string",
+        "symbol": "string",
+        "disabled": "boolean"
+      },
+      "outputs": {},
+      "example": "<vx-currency-input currency=\"USD\" symbol=\"$\"></vx-currency-input>"
+    },
+    {
+      "group": "forms",
+      "class": "VxValidationSummaryComponent",
+      "selector": "vx-validation-summary",
+      "inputs": {
+        "errors": "{ fieldId: string, message: string }[]"
+      },
+      "outputs": {},
+      "example": "<vx-validation-summary [errors]=\"formErrors\"></vx-validation-summary>"
+    },
+    {
+      "group": "overlays",
+      "class": "VxModalComponent",
+      "selector": "vx-modal",
+      "inputs": {
+        "open": "boolean",
+        "title": "string (required)",
+        "size": "sm | md | lg | fullscreen",
+        "closeOnBackdropClick": "boolean"
+      },
+      "outputs": {
+        "openChange": "boolean",
+        "closed": "void"
+      },
+      "example": "<vx-modal [(open)]=\"modalOpen\" title=\"Confirm policy\" size=\"md\" (closed)=\"afterClose()\">Confirmation</vx-modal>"
+    },
+    {
+      "group": "overlays",
+      "class": "VxDrawerComponent",
+      "selector": "vx-drawer",
+      "inputs": {
+        "open": "boolean",
+        "title": "string (required)",
+        "position": "left | right"
+      },
+      "outputs": {
+        "openChange": "boolean",
+        "closed": "void"
+      },
+      "example": "<vx-drawer [(open)]=\"drawerOpen\" title=\"Filters\" position=\"right\">Filter controls</vx-drawer>"
+    },
+    {
+      "group": "feedback",
+      "class": "VxAlertComponent",
+      "selector": "vx-alert",
+      "inputs": {
+        "variant": "info | success | warning | error",
+        "title": "string",
+        "dismissible": "boolean"
+      },
+      "outputs": {
+        "dismissed": "void"
+      },
+      "example": "<vx-alert variant=\"error\" title=\"Upload failed\" [dismissible]=\"true\">Try again.</vx-alert>"
+    },
+    {
+      "group": "feedback",
+      "class": "VxAlertBannerComponent",
+      "selector": "vx-alert-banner",
+      "inputs": {
+        "variant": "info | warning",
+        "dismissible": "boolean"
+      },
+      "outputs": {
+        "dismissed": "void"
+      },
+      "example": "<vx-alert-banner variant=\"warning\" [dismissible]=\"true\">Scheduled maintenance.</vx-alert-banner>"
+    },
+    {
+      "group": "feedback",
+      "class": "VxEmptyStateComponent",
+      "selector": "vx-empty-state",
+      "inputs": {
+        "title": "string (required)",
+        "description": "string",
+        "icon": "string"
+      },
+      "outputs": {},
+      "example": "<vx-empty-state title=\"No policies\" description=\"Create a policy to get started.\"></vx-empty-state>"
+    },
+    {
+      "group": "feedback",
+      "class": "VxTooltipDirective",
+      "selector": "vxTooltip",
+      "selectorType": "attribute",
+      "inputs": {
+        "vxTooltip": "string"
+      },
+      "outputs": {},
+      "example": "<button [vxTooltip]=\"'Open filters'\">Filters</button>"
+    },
+    {
+      "group": "feedback",
+      "class": "VxPopoverDirective",
+      "selector": "vxPopover",
+      "selectorType": "attribute",
+      "inputs": {
+        "vxPopover": "TemplateRef | string"
+      },
+      "outputs": {},
+      "example": "<button [vxPopover]=\"popoverContent\">Details</button>"
+    },
+    {
+      "group": "feedback",
+      "class": "VxToastContainerComponent",
+      "selector": "vx-toast-container",
+      "inputs": {},
+      "outputs": {},
+      "services": ["VxToastService"],
+      "example": "<vx-toast-container></vx-toast-container>"
+    },
+    {
+      "group": "data",
+      "class": "VxTableComponent",
+      "selector": "vx-table",
+      "inputs": {
+        "data": "unknown[]",
+        "columns": "VxColumnDef[]",
+        "density": "compact | comfortable | spacious",
+        "selectable": "boolean",
+        "loading": "boolean",
+        "pagination": "boolean",
+        "pageSize": "number",
+        "emptyMessage": "string"
+      },
+      "outputs": {
+        "rowClick": "unknown",
+        "selectionChange": "unknown[]"
+      },
+      "example": "<vx-table [data]=\"rows\" [columns]=\"columns\" [pagination]=\"true\" (rowClick)=\"openRow($event)\"></vx-table>"
+    },
+    {
+      "group": "data",
+      "class": "VxKanbanBoardComponent",
+      "selector": "vx-kanban-board",
+      "inputs": {
+        "columns": "VxKanbanColumn[] (required)"
+      },
+      "outputs": {},
+      "example": "<vx-kanban-board [columns]=\"kanbanColumns\"></vx-kanban-board>"
+    },
+    {
+      "group": "data",
+      "class": "VxCalendarComponent",
+      "selector": "vx-calendar",
+      "inputs": {
+        "selectedDate": "Date | string"
+      },
+      "outputs": {
+        "selectedDateChange": "Date | string"
+      },
+      "example": "<vx-calendar [(selectedDate)]=\"selectedDate\"></vx-calendar>"
+    },
+    {
+      "group": "data",
+      "class": "VxTimelineComponent",
+      "selector": "vx-timeline",
+      "inputs": {
+        "items": "VxTimelineItem[] (required)"
+      },
+      "outputs": {},
+      "example": "<vx-timeline [items]=\"activityItems\"></vx-timeline>"
+    },
+    {
+      "group": "domain",
+      "class": "VxPolicyStatusChipComponent",
+      "selector": "vx-policy-status-chip",
+      "inputs": {
+        "status": "string (required)",
+        "label": "string (required)"
+      },
+      "outputs": {},
+      "example": "<vx-policy-status-chip status=\"active\" label=\"Active\"></vx-policy-status-chip>"
+    },
+    {
+      "group": "domain",
+      "class": "VxKpiCardComponent",
+      "selector": "vx-kpi-card",
+      "inputs": {
+        "label": "string (required)",
+        "value": "string | number (required)",
+        "icon": "string",
+        "trend": "up | down | neutral",
+        "trendValue": "string",
+        "trendPeriod": "string"
+      },
+      "outputs": {},
+      "example": "<vx-kpi-card label=\"Written premium\" [value]=\"12450\" trend=\"up\" trendValue=\"8.2%\"></vx-kpi-card>"
+    },
+    {
+      "group": "domain",
+      "class": "VxPremiumCardComponent",
+      "selector": "vx-premium-card",
+      "inputs": {
+        "amount": "string | number",
+        "dueDate": "string | Date",
+        "policyNo": "string"
+      },
+      "outputs": {},
+      "example": "<vx-premium-card amount=\"$12,450.00\" dueDate=\"Oct 15, 2026\" policyNo=\"POL-2024-8841\"></vx-premium-card>"
+    },
+    {
+      "group": "domain",
+      "class": "VxNotificationFeedComponent",
+      "selector": "vx-notification-feed",
+      "inputs": {
+        "notifications": "unknown[]"
+      },
+      "outputs": {},
+      "example": "<vx-notification-feed [notifications]=\"notifications\"></vx-notification-feed>"
+    },
+    {
+      "group": "domain",
+      "class": "VxAuditLogComponent",
+      "selector": "vx-audit-log",
+      "inputs": {
+        "changes": "unknown[]"
+      },
+      "outputs": {},
+      "example": "<vx-audit-log [changes]=\"changes\"></vx-audit-log>"
+    },
+    {
+      "group": "domain",
+      "class": "VxLoginCardComponent",
+      "selector": "vx-login-card",
+      "inputs": {},
+      "outputs": {},
+      "example": "<vx-login-card></vx-login-card>"
+    },
+    {
+      "group": "domain",
+      "class": "VxPermissionMatrixComponent",
+      "selector": "vx-permission-matrix",
+      "inputs": {
+        "roles": "unknown[]",
+        "permissions": "unknown[]"
+      },
+      "outputs": {},
+      "example": "<vx-permission-matrix [roles]=\"roles\" [permissions]=\"permissions\"></vx-permission-matrix>"
+    }
+  ]
+}
