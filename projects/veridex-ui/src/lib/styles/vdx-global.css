@@ -938,6 +938,8 @@ color: var(--vdx-color-text-primary);
 }
 
 .vdx-sidebar--collapsed .vdx-nav-item__label,
+.vdx-sidebar--collapsed .vdx-nav-item__children,
+.vdx-sidebar--collapsed .vdx-nav-item__chevron,
 .vdx-sidebar--collapsed .vdx-nav__label,
 .vdx-sidebar--collapsed .vdx-nav__group-label,
 .vdx-sidebar--collapsed .vdx-nav__badge {

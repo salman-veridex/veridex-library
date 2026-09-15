@@ -1,11 +1,17 @@
-import { Component, Input, Output, EventEmitter, ChangeDetectionStrategy, signal } from '@angular/core';
+import { Component, Input, Output, EventEmitter, ChangeDetectionStrategy, OnChanges, SimpleChanges, effect, forwardRef, inject, Injectable, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { VxIconComponent } from '../icon/icon.component';
+
+@Injectable({ providedIn: 'root' })
+export class VxSidebarStateService {
+  readonly collapsed = signal(false);
+}
 
 @Component({
   selector: 'vx-app-shell',
   standalone: true,
   imports: [CommonModule, VxIconComponent],
+  providers: [VxSidebarStateService],
   template: `
     <div class="vdx-app-shell" [attr.data-collapsed]="sidebarCollapsed()">
       <!-- Skip Navigation Link for Accessibility -->
@@ -181,11 +187,16 @@ import { VxIconComponent } from '../icon/icon.component';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class VxAppShellComponent {
+  private readonly sidebarState = inject(VxSidebarStateService);
   sidebarCollapsed = signal(false);
   mobileDrawerOpen = signal(false);
 
   toggleSidebar(): void {
-    this.sidebarCollapsed.update(val => !val);
+    this.sidebarCollapsed.update(val => {
+      const collapsed = !val;
+      this.sidebarState.collapsed.set(collapsed);
+      return collapsed;
+    });
   }
 
   toggleMobileDrawer(): void {
@@ -282,16 +293,49 @@ export class VxSidebarComponent {}
 @Component({
   selector: 'vx-sidebar-item',
   standalone: true,
-  imports: [CommonModule, VxIconComponent],
+  imports: [CommonModule, VxIconComponent, forwardRef(() => VxSidebarItemComponent)],
   template: `
-    <a
-      [href]="href || '#'"
-      [class.vdx-nav-item--active]="active"
-      class="vdx-nav-item"
-      [attr.aria-current]="active ? 'page' : null">
-      <vx-icon [name]="icon || 'circle'" size="md" class="vdx-nav-item__icon"></vx-icon>
-      <span class="vdx-nav-item__label">{{ label }}</span>
-    </a>
+    <ng-container *ngIf="hasChildren; else leafItem">
+      <button
+        type="button"
+        class="vdx-nav-item vdx-nav-item--parent"
+        [class.vdx-nav-item--active]="isActive"
+        [attr.aria-expanded]="isOpen()"
+        [attr.aria-controls]="childrenId"
+        (click)="toggleChildren()">
+        <vx-icon [name]="icon || 'folder'" size="md" class="vdx-nav-item__icon"></vx-icon>
+        <span class="vdx-nav-item__label">{{ displayLabel }}</span>
+        <vx-icon
+          name="chevron-down"
+          size="sm"
+          class="vdx-nav-item__chevron"
+          [class.vdx-nav-item__chevron--open]="isOpen()"></vx-icon>
+      </button>
+
+      <div *ngIf="isOpen()" [id]="childrenId" class="vdx-nav-item__children" role="group">
+        <vx-sidebar-item
+          *ngFor="let child of children"
+          [label]="child.label"
+          [title]="child.title"
+          [icon]="child.icon"
+          [href]="child.path || child.href"
+          [children]="child.children || []"
+          [active]="child.active || false"
+          [currentPath]="currentPath">
+        </vx-sidebar-item>
+      </div>
+    </ng-container>
+
+    <ng-template #leafItem>
+      <a
+        [href]="href || path || '#'"
+        [class.vdx-nav-item--active]="isActive"
+        class="vdx-nav-item"
+        [attr.aria-current]="isActive ? 'page' : null">
+        <vx-icon [name]="icon || 'circle'" size="md" class="vdx-nav-item__icon"></vx-icon>
+        <span class="vdx-nav-item__label">{{ displayLabel }}</span>
+      </a>
+    </ng-template>
   `,
   styles: [`
     .vdx-nav-item {
@@ -317,14 +361,101 @@ export class VxSidebarComponent {}
       color: var(--vdx-color-text-inverse) !important;
       font-weight: 600;
     }
+    .vdx-nav-item--parent {
+      width: 100%;
+      border: 0;
+      background: transparent;
+      color: inherit;
+      cursor: pointer;
+      text-align: left;
+      appearance: none;
+    }
+    .vdx-nav-item__label { flex: 1; }
+    .vdx-nav-item__chevron {
+      flex: 0 0 auto;
+      transition: transform var(--vdx-duration-fast);
+    }
+    .vdx-nav-item__chevron--open { transform: rotate(180deg); }
+    .vdx-nav-item__children {
+      display: flex;
+      flex-direction: column;
+      gap: var(--vdx-space-1);
+      padding-left: var(--vdx-space-4);
+    }
   `],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class VxSidebarItemComponent {
-  @Input({ required: true }) label!: string;
+export class VxSidebarItemComponent implements OnChanges {
+  private readonly sidebarState = inject(VxSidebarStateService);
+  @Input() label?: string;
+  @Input() title?: string;
   @Input() icon?: string;
   @Input() active: boolean = false;
   @Input() href?: string;
+  @Input() path?: string;
+  @Input() children: VxSidebarItem[] = [];
+  @Input() currentPath?: string;
+
+  private static nextId = 0;
+  readonly childrenId = `vdx-sidebar-children-${VxSidebarItemComponent.nextId++}`;
+  readonly isOpen = signal(false);
+  private readonly collapseEffect = effect(() => {
+    if (this.sidebarState.collapsed()) {
+      this.isOpen.set(false);
+    }
+  });
+
+  get hasChildren(): boolean {
+    return this.children.length > 0;
+  }
+
+  get displayLabel(): string {
+    return this.label || this.title || '';
+  }
+
+  get isActive(): boolean {
+    return this.active || this.path === this.currentPath || this.hasActiveDescendant;
+  }
+
+  private get hasActiveDescendant(): boolean {
+    return this.children.some(child =>
+      child.active === true ||
+      child.path === this.currentPath ||
+      this.hasActiveDescendantOf(child)
+    );
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (!this.sidebarState.collapsed() &&
+        (changes['active'] || changes['children'] || changes['currentPath']) &&
+        this.isActive) {
+      this.isOpen.set(true);
+    }
+  }
+
+  toggleChildren(): void {
+    if (this.hasChildren && !this.sidebarState.collapsed()) {
+      this.isOpen.update(open => !open);
+    }
+  }
+
+  private hasActiveDescendantOf(item: VxSidebarItem): boolean {
+    return (item.children || []).some(child =>
+      child.active === true ||
+      child.path === this.currentPath ||
+      this.hasActiveDescendantOf(child)
+    );
+  }
+}
+
+export interface VxSidebarItem {
+  title?: string;
+  label?: string;
+  path?: string;
+  href?: string;
+  icon?: string;
+  active?: boolean;
+  children?: VxSidebarItem[];
 }
 
 @Component({
